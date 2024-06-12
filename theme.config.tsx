@@ -9,7 +9,7 @@ const config: DocsThemeConfig = {
   chat: {
     link: 'https://discord.gg/QFzEG6cS',
   },
-  docsRepositoryBase: 'https://github.com/MegaPortal/web-intents-for-llms/',
+  docsRepositoryBase: 'https://github.com/MegaPortal/web-intents-for-llms/blob/main',
   footer: {
     text: 'Web Intents for LLMs Doc Site',
   },
