@@ -61,8 +61,8 @@ You can also visit the json file at https://spellboard-twitch-intent.vercel.app/
 
 1. create a `intents.json` file and place it in the root of your web service.
 2. make your site embedable by disable the iframe protection.
-    1. `X-Frame-Options`: set the header of your site to `ALLOW-FROM https://spellboard.vercel.app` or disable it.
-    2. `Content-Security-Policy`: set the header of your site to `frame-ancestors 'self' https://spellboard.vercel.app` or disable it.
+    1. `X-Frame-Options`: set the header of your site to `ALLOW-FROM https://spellboard.getmegaportal.com/` or disable it.
+    2. `Content-Security-Policy`: set the header of your site to `frame-ancestors 'self' https://spellboard.getmegaportal.com/` or disable it.
     3. Make your cookie `SameSite=None; Secure` if you are using cookies.
     4. Any other security measures that you have in place that might prevent your site from being embedded in an iframe.
 3. Visit `https://spellboard.getmegaportal.com/?appUrl=${encodeURIComponent('https://your-site.com')}` to test your site.
