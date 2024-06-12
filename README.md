@@ -14,7 +14,7 @@ The LLMs recognize the intent and then embed the interface in the chat. The user
 
 **The `intents.json`**
 
-LLMs accept function calls, so we have to define the function that the LLMs will call. Here's the function definition in JSON format:
+LLMs accept function calls, so we have to define the function that the LLMs will call. Here's the definition modified form OpenAI's function definition in JSON format:
 
 ```json
 {
@@ -46,6 +46,14 @@ LLMs accept function calls, so we have to define the function that the LLMs will
     }
 }
 ```
+
+With this definition, LLMs based chatbots can call the function `is_streamer_live_on_twitch` by extracting the function call related information from JSON and pass it to the completion APIs.
+
+You can check OpenAI's completion API [here](https://platform.openai.com/docs/api-reference/chat/create#chat-create-tools). The difference between OpenAI's completion API and this is that we add the following fields:
+
+1. `link`: The link to the web service that will be called.
+2. `example`: An example of the link with the parameters filled in.
+3. `returns`: The return value of the function.
 
 You can also visit the json file at https://spellboard-twitch-intent.vercel.app/intents.json
 
