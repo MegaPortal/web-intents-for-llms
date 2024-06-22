@@ -1,0 +1,22 @@
+# Versioning
+
+Third-party integrations can be updated at any time. For efficiency, the LLM-based platform may cache the `intents.json` file and only update it when necessary. This is where versioning comes into play.
+
+## Relevant Fields
+
+1. `schema`: The schema version of the `intents.json`. For version 1, it should be set to `v1`.
+2. `version`: The version of the `intents.json`. This should be a string in semantic versioning format.
+
+<iframe width="100%" height="380" src="https://spellboard-mermaid-intent.spellboard.app/?graph_code=graph%20TD%3B%0AA%5B1.2.3%5D%20--%3E%20B%5BMajor%20Version%3A%201%5D%3B%0AA%20--%3E%20C%5BMinor%20Version%3A%202%5D%3B%0AA%20--%3E%20D%5BPatch%20Version%3A%203%5D%3B%0AB%20--%3E%20B1%5BIncrements%20for%20incompatible%20changes%5D%3B%0AC%20--%3E%20C1%5BIncrements%20for%20adding%20functionality%5D%3B%0AD%20--%3E%20D1%5BIncrements%20for%20backward-compatible%20bug%20fixes%5D%3B&spInstanceId=ytlzl7kmpzl&spTimestamp=1719075423746&spCallbackToken=2petes45nuq&origin=https%3A%2F%2Fwww.spellboard.app&full=true" title="Graph" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+## Instructions for Intent Providers
+
+1. Update the `version` field whenever you update the `intents.json`.
+2. Update the `schema` field whenever you change the schema of the `intents.json`.
+3. Deploy the `intents.json` as a static file, similar to how files are served on a CDN. This approach makes it easier to detect changes using response headers like `ETag` and `Last-Modified`, allowing LLM-based platforms to cache it using standard static file logic.
+
+## Instructions for LLM-based Platforms
+
+1. Check the `version` field and update the cache if the version has changed.
+2. Check the `schema` field and validate the `intents.json` against the corresponding schema.
+3. Cache the `intents.json` and follow standard caching logic as you would for a normal static file.

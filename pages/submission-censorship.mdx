@@ -1,0 +1,22 @@
+# Submission and Running Censorship Guidelines
+
+To ensure the integrity and appropriateness of submissions, it is imperative to implement censorship measures for the following reasons:
+
+1. **Content Injection and Rule Violation Prevention**: The entirety of the `intents.json` content is used as a prompt for the LLM model to generate output. Without censorship, users might encounter inappropriate content or potentially exploit loopholes in the LLM's rules.
+
+2. **Resource Management**: The descriptions within the app, including the list and details of intents, can be extensive. Unchecked content might lead to excessive token consumption or hinder the model's ability to generate timely outputs.
+
+Given these reasons, it is essential to censor the submission content. We recommend that the platform:
+
+1. **Define Submission Constraints**:
+    - Specify limitations on the length of the app's name and description.
+    - Set maximum lengths for the names and descriptions of intents.
+    - Restrict the lengths of intent parameters and their values.
+    - Limit the overall number of intents within `intents.json`.
+    - Clearly outline allowable content types within `intents.json`.
+
+2. **Validation and Review Process**:
+    - Implement automated checks to ensure `intents.json` adheres to the defined constraints.
+    - Utilize LLM-based models or human review to validate content against platform rules.
+
+Additionally, we recommend real-time risk assessment when accepting responses from apps. This can be achieved through continuous or sampled evaluations using LLM models, keyword-based methods, or other techniques to detect and mitigate inappropriate content.

@@ -1,0 +1,10 @@
+# Security Issues
+
+In the realm of LLM-based platforms and Intent providers, we face a significant security challenge due to the nature of these two domains operating independently and without inherent trust in each other. This setup leads to traditional cross-domain communication security issues.
+
+Employing an iFrame can help mitigate some risks by isolating the iFrame's content from the parent page, and vice versa. However, isolation via iFrames alone doesn't fully secure the system. Intent providers, which are utilized by all LLM-based platforms, still need robust mechanisms for authentication and authorization.
+
+1. **Authentication**: LLM-based platforms and Intent providers must implement mutual authentication protocols to verify each other's identity.
+2. **Authorization**: Both parties should also establish mutual authorization processes to ensure that only legitimate and trusted platforms can access and interact with each other.
+
+By addressing these areas, we can enhance the security framework and better protect the integrity of cross-domain communications.

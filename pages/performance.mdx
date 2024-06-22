@@ -1,0 +1,69 @@
+## Understanding the Performance Bottlenecks
+
+### Key Factors Influencing Performance
+
+1. **LLM Model Limitations**:
+   - LLMs (Large Language Models) operate within constraints such as fixed context length and output size.
+   - Processing input and generating output are time-consuming tasks.
+   - The complexity and number of related intents further complicate the processing.
+
+2. **Function Call Mechanism**:
+   - The platform operates on a function call mechanism, which involves three key steps:
+     1. Injecting intents into the prompt and detecting the appropriate function/intent.
+     2. Generating input for the function call and executing it to produce output.
+     3. Assembling the function call output into the final response, necessitating another LLM invocation.
+
+### Challenges to Address
+
+These constraints lead to several performance issues:
+
+1. **Input Size Management**:
+   - Ensuring the input size remains within the LLM's context limits while providing relevant intents and apps to the user.
+2. **Optimizing Function Call Time**:
+   - Displaying intent-related results promptly during the second phase of the function call process.
+   - Avoiding duplication of function call inputs in the third phase.
+
+### Installation and Execution Workflow
+
+To mitigate these issues, we propose a two-phase approach:
+
+#### Phase 1: Installation - Indexing Intents:
+   - Pre-install intents before user interaction by indexing them.
+   - This involves fetching intents from `intents.json`, concatenating descriptive information with app names and descriptions, summarizing using an LLM model, and embedding the summarized data into a vector database.
+   - This ensures rapid retrieval of relevant intents and apps during user interactions.
+
+#### Phase 2: Running - Searching and Executing Intents:
+   - When a user provides input, the platform searches for the most relevant intents from the vector database and injects them into the prompt.
+   - The LLM generates the input for the function call, which is then executed to produce output.
+   - Cache the function call input and use placeholders in the third phase to avoid duplication.
+   - Assemble the final output and display it to the user.
+   - The app loads in an iframe, enabling user interaction.
+   - Asynchronous callbacks are posted back to the platform, treating them as function role messages and invoking the completion API again.
+
+### Detailed Steps for Installation and Running
+
+#### Installation
+
+1. Fetch intents from `intents.json`.
+2. For each intent:
+   - Concatenate descriptive information with app names and descriptions.
+   - Summarize the concatenated data using an LLM.
+   - Embed the summary into a vector and insert it into a vector database, linking intents and apps.
+
+#### Running
+
+1. User inputs a prompt.
+2. Platform searches the vector database for relevant intents, injecting them as function calls within LLM context limits.
+3. LLM generates the function call input, and the function call is executed.
+4. Cache the function call input and replace it with a placeholder in the third phase.
+5. Assemble the final output and display it.
+6. App loads in an iframe, allowing user interaction.
+7. Post asynchronous callbacks back to the platform.
+8. Treat callbacks as function role messages and re-invoke the completion API.
+9. Repeat the process for continuous user interaction.
+
+### Enhancing User Experience
+
+For users needing early access to function call results or process visibility:
+- In step 3, stream function call inputs back to the platform via a separate connection (e.g., WebSocket).
+- This allows early iframe display and stream processing, beneficial for t
